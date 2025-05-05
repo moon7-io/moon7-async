@@ -1,7 +1,18 @@
 {
     "name": "@moon7/async",
+    "author": "Munir Hussin <profoundseven@gmail.com>",
+    "license": "MIT",
     "version": "0.1.0",
     "description": "Asynchronous utilities for JavaScript and TypeScript applications",
+    "keywords": [
+        "async",
+        "asynchronous",
+        "promise",
+        "utility",
+        "typescript",
+        "javascript",
+        "moon7"
+    ],
     "type": "module",
     "files": [
         "dist"
@@ -15,15 +26,27 @@
             "require": "./dist/index.umd.cjs"
         }
     },
+    "repository": {
+        "type": "git",
+        "url": "git+https://github.com/moon7-io/moon7-async.git"
+    },
+    "homepage": "https://github.com/moon7-io/moon7-async#readme",
+    "bugs": {
+        "url": "https://github.com/moon7-io/moon7-async/issues"
+    },
     "sideEffects": false,
     "scripts": {
         "build": "vite build",
         "dev": "vite build --watch",
         "clean": "rimraf dist",
+        "prepublishOnly": "pnpm lint:errors && pnpm test && pnpm build",
         "lint": "pnpm lint:type && pnpm lint:code && pnpm lint:prettier && pnpm lint:files",
+        "lint:errors": "pnpm lint:type && pnpm lint:code:errors && pnpm lint:prettier:errors && pnpm lint:files",
         "lint:type": "tsc --noEmit",
         "lint:code": "eslint --ext .ts,.tsx src/ test/",
+        "lint:code:errors": "eslint --ext .ts,.tsx src/ test/ --quiet",
         "lint:prettier": "prettier --check \"src/**/*\" \"test/**/*\"",
+        "lint:prettier:errors": "prettier --check --log-level error \"src/**/*\" \"test/**/*\"",
         "lint:files": "ls-lint",
         "fix": "pnpm fix:code && pnpm fix:prettier",
         "fix:code": "eslint --ext .ts,.tsx src/ test/ --fix",
@@ -32,17 +55,6 @@
         "test:watch": "vitest watch",
         "test:coverage": "vitest run --coverage"
     },
-    "keywords": [
-        "async",
-        "asynchronous",
-        "promise",
-        "utility",
-        "typescript",
-        "javascript",
-        "moon7"
-    ],
-    "author": "Munir Hussin <profoundseven@gmail.com>",
-    "license": "MIT",
     "devDependencies": {
         "@ls-lint/ls-lint": "^2.3.0",
         "@types/node": "^22.15.3",
@@ -61,5 +73,11 @@
     },
     "dependencies": {
         "tslib": "^2.7.0"
+    },
+    "publishConfig": {
+        "access": "public"
+    },
+    "engines": {
+        "node": ">=18.0.0"
     }
 }

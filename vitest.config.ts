@@ -5,18 +5,28 @@ export default defineConfig({
     test: {
         globals: true,
         environment: "node",
-        include: ["tests/**/*.test.ts"],
+        include: ["test/**/*.test.ts"],
         exclude: ["node_modules", "dist"],
         coverage: {
             provider: "v8",
             reporter: ["text", "json", "html"],
-            exclude: ["node_modules/", "dist/", "tests/"],
+            include: ["src/**/*.ts"],
+            exclude: [
+                "node_modules/",
+                "dist/",
+                "test/",
+                "types/",
+                "*.config.ts",
+                "*.config.js",
+                "*.util.ts",
+                "*.plugins.ts",
+            ],
         },
     },
     resolve: {
         alias: {
             "~": resolve(__dirname, "./src"),
-            "!": resolve(__dirname, "./tests"),
+            "!": resolve(__dirname, "./test"),
         },
     },
 });
