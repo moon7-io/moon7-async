@@ -5,7 +5,7 @@ export type Fail = (error: any) => void;
 export type Abort = () => void;
 export type Future<T> = (pass: Pass<T>, fail: Fail) => void;
 
-function pass<T>(value: string): Future<T> {
+function _pass<T>(value: T): Future<T> {
     return delay(0, value);
 }
 
