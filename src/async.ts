@@ -5,8 +5,9 @@ export type AsyncFn<A extends any[] = any[], R = any> = (...args: A) => Promise<
 export type GenFn<A extends any[] = any[], R = any> = (...args: A) => IterableIterator<R>;
 export type PromiseType<T, Else = never> = T extends Promise<infer P> ? P : Else;
 
-export type Resolver<T> = (value: T | PromiseLike<T>) => void;
-export type Rejecter = (reason?: any) => void;
+export type Resolve<T> = (value: T | PromiseLike<T>) => void;
+export type Reject = (reason?: any) => void;
+export type Deferred<T> = [Promise<T>, Resolve<T>, Reject];
 
 type MapPromise<T> = { [K in keyof T]: Promise<T[K]> };
 
@@ -55,7 +56,7 @@ export function delay<F extends Fn>(ms: number, fn: F, ...args: Parameters<F>): 
 /**
  * Defers invoking a function until the current call stack has cleared.
  */
-export function defer<F extends Fn>(fn: F, ...args: Parameters<F>): Promise<ReturnType<F>> {
+export function nextTick<F extends Fn>(fn: F, ...args: Parameters<F>): Promise<ReturnType<F>> {
     return delay(0, fn, ...args);
 }
 
@@ -144,13 +145,13 @@ export function expBackoff(minRetryWaitTime: number = MINIMUM_RETRY_WAIT_TIME): 
  * This is useful for creating a promise that can be resolved later.
  *
  * @example
- * const [promise, resolve] = future();
+ * const [promise, resolve] = deferred();
  * resolve("hello");
  * const value = await promise; // "hello"
  */
-export function future<T>(): [Promise<T>, Resolver<T>, Rejecter] {
-    let resolve: Resolver<T>;
-    let reject: Rejecter;
+export function deferred<T>(): Deferred<T> {
+    let resolve: Resolve<T>;
+    let reject: Reject;
     const promise = new Promise<T>((_resolve, _reject) => {
         resolve = _resolve;
         reject = _reject;

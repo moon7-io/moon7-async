@@ -2,13 +2,13 @@ import { describe, test, expect, vi, beforeEach, afterEach } from "vitest";
 import {
     sleep,
     delay,
-    defer,
+    nextTick,
     fromAsyncIterator,
     lift,
     withTimeout,
     withRetry,
     expBackoff,
-    future,
+    deferred,
     TimeoutError,
     RetryError,
     timeout,
@@ -64,10 +64,10 @@ describe("async utilities", () => {
         });
     });
 
-    describe("defer", () => {
+    describe("nextTick", () => {
         test("should defer function execution until next tick", async () => {
             const fn = vi.fn().mockReturnValue("result");
-            const promise = defer(fn);
+            const promise = nextTick(fn);
 
             expect(fn).not.toHaveBeenCalled();
 
@@ -80,7 +80,7 @@ describe("async utilities", () => {
 
         test("should pass arguments to the function", async () => {
             const fn = vi.fn().mockReturnValue("result");
-            const promise = defer(fn, "arg1", "arg2");
+            const promise = nextTick(fn, "arg1", "arg2");
 
             vi.advanceTimersByTime(0);
             await promise;
@@ -258,9 +258,9 @@ describe("async utilities", () => {
         });
     });
 
-    describe("future", () => {
+    describe("deferred", () => {
         test("should create a promise with resolve and reject functions", async () => {
-            const [promise, resolve, reject] = future<string>();
+            const [promise, resolve, reject] = deferred<string>();
 
             expect(promise).toBeInstanceOf(Promise);
             expect(typeof resolve).toBe("function");
@@ -273,7 +273,7 @@ describe("async utilities", () => {
         });
 
         test("should allow rejection of the promise", async () => {
-            const [promise, , reject] = future<string>();
+            const [promise, , reject] = deferred<string>();
             const error = new Error("test error");
 
             reject(error);

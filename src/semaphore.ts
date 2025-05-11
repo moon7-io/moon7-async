@@ -1,4 +1,4 @@
-import { future } from "~/async";
+import { deferred } from "~/async";
 
 export type Callback = () => void;
 export type Release = () => boolean;
@@ -53,7 +53,7 @@ export class Semaphore {
             return this.release();
         }
 
-        const [promise, resolve] = future<Release>();
+        const [promise, resolve] = deferred<Release>();
         this.queue.push(() => {
             this.count++;
             resolve(this.release());
