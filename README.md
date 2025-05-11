@@ -31,15 +31,30 @@ pnpm add @moon7/async
 ### Timing Functions
 
 ```typescript
-import { sleep, delay, defer } from '@moon7/async';
+import { sleep, delay, defer, timeout } from '@moon7/async';
 
-// Sleep for a specific duration
-async function example() {
-    await sleep(1000); // pause for 1 second
+// Sleep for 1 second
+await sleep(1000);
+
+// Sleep for 1 second, and a return a value
+const result = await sleep(1000, 'Hello');
+
+try {
+    // Create a timeout that will throw after 5 seconds
+    await timeout(5000);
+} catch (error) {
+    console.error(error);
+}
+
+try {
+    // Throw a custom error after 5 seconds
+    await timeout(5000, new Error('Custom timeout message'));
+} catch (error) {
+    console.error(error);
 }
 
 // Delay a function call
-const result = await delay(2000, () => 'Hello after 2 seconds');
+const delayedResult = await delay(2000, () => 'Hello after 2 seconds');
 
 // Delay with arguments
 const multiply = (a, b) => a * b;
@@ -271,16 +286,17 @@ console.log(result); // 6
 
 ### Timing Functions
 
-- `sleep(ms: number): Promise<void>` - Pauses execution for the specified milliseconds
-- `delay<F extends Fn>(ms: number, fn: F, ...args: Parameters<F>): Promise<ReturnType<F>>` - Delays a function call
-- `defer<F extends Fn>(fn: F, ...args: Parameters<F>): Promise<ReturnType<F>>` - Defers a function until the call stack clears
+- `sleep(ms, value?)` - Pauses execution for the specified milliseconds with optional return value
+- `timeout(ms)` - Creates a promise that rejects with a TimeoutError after the specified milliseconds
+- `delay(ms, fn, ...args)` - Delays a function call
+- `defer(fn, ...args)` - Defers a function until the call stack clears
 
 ### Promise Utilities
 
-- `future<T>(): [Promise<T>, Resolver<T>, Rejecter]` - Creates a promise that can be resolved or rejected externally
-- `withTimeout<A extends any[], R>(asyncFn: (...args: A) => Promise<R>, timeoutInMs: number)` - Adds a timeout to an async function
-- `withRetry<A extends any[], R>(fn: (...args: A) => Promise<R>, tries: number, wait?: Wait)` - Adds retry capability
-- `expBackoff(minRetryWaitTime: number): Wait` - Creates an exponential backoff strategy
+- `future()` - Creates a promise that can be resolved or rejected externally
+- `withTimeout(asyncFn, timeoutInMs)` - Adds a timeout to an async function
+- `withRetry(fn, tries, wait)` - Adds retry capability
+- `expBackoff(minRetryWaitTime)` - Creates an exponential backoff strategy
 
 ### Concurrency Control
 
@@ -290,8 +306,8 @@ console.log(result); // 6
 
 ### Async Utilities
 
-- `fromAsyncIterator<T>(it: AsyncGenerator<T>): Promise<T[]>` - Collects async iterator values into an array
-- `lift<A extends any[], R>(fn: (...args: A) => R)` - Lifts a function to work with promises
+- `fromAsyncIterator(it)` - Collects async iterator values into an array
+- `lift(fn)` - Lifts a function to work with promises
 
 ## Contributing
 
