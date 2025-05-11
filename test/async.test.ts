@@ -11,6 +11,7 @@ import {
     future,
     TimeoutError,
     RetryError,
+    timeout,
 } from "~/index";
 
 describe("async utilities", () => {
@@ -28,6 +29,13 @@ describe("async utilities", () => {
             vi.advanceTimersByTime(1000);
             await promise;
             expect(vi.getTimerCount()).toBe(0);
+        });
+
+        test("should resolve with the provided value", async () => {
+            const promise = sleep(1000, "test-value");
+            vi.advanceTimersByTime(1000);
+            const result = await promise;
+            expect(result).toBe("test-value");
         });
     });
 
@@ -211,6 +219,24 @@ describe("async utilities", () => {
             await expect(retryFn()).rejects.toHaveProperty("lastError", testError);
             expect(fn).toHaveBeenCalledTimes(6); // 3 calls for each of the two expect tests
         }, 10000);
+    });
+
+    describe("timeout", () => {
+        test("should throw TimeoutError after the specified time", async () => {
+            const promise = timeout(1000);
+
+            // Advance time and check that it rejects
+            vi.advanceTimersByTime(1000);
+            await expect(promise).rejects.toThrow(TimeoutError);
+        });
+
+        test("should throw the provided error if specified", async () => {
+            const customError = new Error("Custom timeout error");
+            const promise = timeout(1000, customError);
+
+            vi.advanceTimersByTime(1000);
+            await expect(promise).rejects.toBe(customError);
+        });
     });
 
     describe("expBackoff", () => {

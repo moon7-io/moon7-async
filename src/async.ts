@@ -15,10 +15,24 @@ type MapPromise<T> = { [K in keyof T]: Promise<T[K]> };
  * `await` this to have non-blocking sleep before resuming flow.
  *
  * @example
- * await sleep(1000);       // sleeps for 1 second
+ * await sleep(1000);           // sleeps for 1 second
+ * await sleep(1000, "hello");  // sleeps for 1 second, resolves to "hello"
  */
-export function sleep(ms: number): Promise<void> {
-    return new Promise((pass) => setTimeout(pass, ms));
+export function sleep(ms: number): Promise<void>;
+export function sleep<T>(ms: number, value: T): Promise<T>;
+export function sleep<T>(ms: number, value?: T): Promise<T> {
+    return new Promise(pass => setTimeout(() => pass(value as T), ms));
+}
+
+/**
+ * Use within an async function.
+ * `await` this to have non-blocking sleep before throwing a TimeoutError.
+ *
+ * @example
+ * await timeout(1000);       // sleeps for 1 second and throws a TimeoutError
+ */
+export function timeout<T = void>(ms: number, error?: any): Promise<T> {
+    return new Promise((_, fail) => setTimeout(() => fail(error ?? new TimeoutError()), ms));
 }
 
 /**
@@ -35,7 +49,7 @@ export function sleep(ms: number): Promise<void> {
  * const x = await delay(5000, fetchPost, userId, postId);
  */
 export function delay<F extends Fn>(ms: number, fn: F, ...args: Parameters<F>): Promise<ReturnType<F>> {
-    return new Promise((pass) => setTimeout(() => pass(fn(...args)), ms));
+    return new Promise(pass => setTimeout(() => pass(fn(...args)), ms));
 }
 
 /**
@@ -119,7 +133,7 @@ export const DEFAULT_RETRIES = 3;
 export const MINIMUM_RETRY_WAIT_TIME = 250;
 
 export function expBackoff(minRetryWaitTime: number = MINIMUM_RETRY_WAIT_TIME): Wait {
-    return (i) => {
+    return i => {
         const backoff = Math.floor(Math.pow(2, i) * minRetryWaitTime);
         return Math.max(backoff, minRetryWaitTime);
     };
