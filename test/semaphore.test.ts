@@ -102,12 +102,12 @@ describe("Semaphore", () => {
             const order: number[] = [];
 
             // Queue two more acquisitions
-            const promise2 = semaphore.acquire().then((release) => {
+            const promise2 = semaphore.acquire().then(release => {
                 order.push(2);
                 return release;
             });
 
-            const promise3 = semaphore.acquire().then((release) => {
+            const promise3 = semaphore.acquire().then(release => {
                 order.push(3);
                 return release;
             });
@@ -158,7 +158,7 @@ describe("Semaphore", () => {
 
             const promise1 = semaphore.use(async () => {
                 order.push(1);
-                await new Promise((resolve) => setTimeout(resolve, 10));
+                await new Promise(resolve => setTimeout(resolve, 10));
                 order.push(2);
                 return "result1";
             });

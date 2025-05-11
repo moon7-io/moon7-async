@@ -9,21 +9,21 @@ describe("Mutex", () => {
         // Start multiple operations that use the mutex
         const operation1 = mutex.use(async () => {
             order.push(1);
-            await new Promise((resolve) => setTimeout(resolve, 10));
+            await new Promise(resolve => setTimeout(resolve, 10));
             order.push(2);
             return "result1";
         });
 
         const operation2 = mutex.use(async () => {
             order.push(3);
-            await new Promise((resolve) => setTimeout(resolve, 10));
+            await new Promise(resolve => setTimeout(resolve, 10));
             order.push(4);
             return "result2";
         });
 
         const operation3 = mutex.use(async () => {
             order.push(5);
-            await new Promise((resolve) => setTimeout(resolve, 10));
+            await new Promise(resolve => setTimeout(resolve, 10));
             order.push(6);
             return "result3";
         });
@@ -47,7 +47,7 @@ describe("Mutex", () => {
             .use(async () => {
                 throw error;
             })
-            .catch((e) => e);
+            .catch(e => e);
 
         // Second operation should still work
         const operation2 = mutex.use(async () => {
@@ -72,7 +72,7 @@ describe("Mutex", () => {
             const isResolved = await Promise.race([
                 acquirePromise.then(() => true),
                 Promise.resolve(false)
-                    .then(() => new Promise((r) => setTimeout(r, 10)))
+                    .then(() => new Promise(r => setTimeout(r, 10)))
                     .then(() => false),
             ]);
 
@@ -111,7 +111,7 @@ describe("Mutex", () => {
 
             const incrementAsync = async () => {
                 const currentValue = sharedResource.value;
-                await new Promise((resolve) => setTimeout(resolve, 10));
+                await new Promise(resolve => setTimeout(resolve, 10));
                 sharedResource.value = currentValue + 1;
             };
 

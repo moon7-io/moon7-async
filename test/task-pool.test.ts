@@ -29,7 +29,7 @@ describe("TaskPool", () => {
                 executingTasks.count++;
                 executingTasks.max = Math.max(executingTasks.max, executingTasks.count);
 
-                await new Promise((resolve) => setTimeout(resolve, 10));
+                await new Promise(resolve => setTimeout(resolve, 10));
 
                 executingTasks.count--;
                 return id;
@@ -77,7 +77,7 @@ describe("TaskPool", () => {
             const results = await pool.submitAll(tasks);
 
             expect(results).toEqual([1, 2, 3, 4, 5]);
-            tasks.forEach((task) => {
+            tasks.forEach(task => {
                 expect(task).toHaveBeenCalledTimes(1);
             });
             expect(pool.tasks).toBe(0);
@@ -91,7 +91,7 @@ describe("TaskPool", () => {
                 executingTasks.count++;
                 executingTasks.max = Math.max(executingTasks.max, executingTasks.count);
 
-                await new Promise((resolve) => setTimeout(resolve, 10));
+                await new Promise(resolve => setTimeout(resolve, 10));
 
                 executingTasks.count--;
                 return id;
