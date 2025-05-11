@@ -25,22 +25,33 @@ export default [
         },
         plugins: {
             "@typescript-eslint": tsPlugin,
-            "import": importPlugin,
+            import: importPlugin,
         },
         rules: {
             // TypeScript specific rules
             "@typescript-eslint/explicit-function-return-type": "off",
             "@typescript-eslint/no-explicit-any": "warn",
-            "@typescript-eslint/no-unused-vars": ["error", { argsIgnorePattern: "^_" }],
+            "@typescript-eslint/no-unused-vars": [
+                "error",
+                {
+                    args: "after-used",
+                    argsIgnorePattern: "^_",
+                    caughtErrors: "all",
+                    caughtErrorsIgnorePattern: "^_",
+                    destructuredArrayIgnorePattern: "^_",
+                    varsIgnorePattern: "^_",
+                    ignoreRestSiblings: true,
+                },
+            ],
             "@typescript-eslint/no-non-null-assertion": "warn",
 
             // Import rules
             "import/order": [
                 "error",
                 {
-                    "groups": ["builtin", "external", "internal", ["parent", "sibling"], "index", "object", "type"],
+                    groups: ["builtin", "external", "internal", ["parent", "sibling"], "index", "object", "type"],
                     "newlines-between": "never",
-                    "alphabetize": { order: "asc", caseInsensitive: true },
+                    alphabetize: { order: "asc", caseInsensitive: true },
                 },
             ],
             "import/no-unresolved": "off", // TypeScript handles this
