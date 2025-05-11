@@ -23,6 +23,6 @@ export class TaskPool<T> {
     }
 
     public async submitAll(tasks: Array<() => Promise<T>>): Promise<T[]> {
-        return Promise.all(tasks.map((task) => this.submit(task)));
+        return Promise.all(tasks.map(task => this.submit(task)));
     }
 }
