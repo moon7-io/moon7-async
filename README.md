@@ -31,26 +31,28 @@ pnpm add @moon7/async
 ### Timing Functions
 
 ```typescript
-import { sleep, delay, defer, timeout } from '@moon7/async';
+import { sleep, delay, nextTick, timeout } from '@moon7/async';
 
-// Sleep for 1 second
+// Sleep for a specific duration
 await sleep(1000);
 
-// Sleep for 1 second, and a return a value
+// Sleep with a return value
 const result = await sleep(1000, 'Hello');
+// Print the result
+console.log(result);
 
+// Create a timeout that will throw after the specified time
 try {
-    // Create a timeout that will throw after 5 seconds
     await timeout(5000);
 } catch (error) {
-    console.error(error);
+    // Will throw a TimeoutError after 5 seconds
 }
 
+// Timeout with a custom error
 try {
-    // Throw a custom error after 5 seconds
     await timeout(5000, new Error('Custom timeout message'));
 } catch (error) {
-    console.error(error);
+    // Will throw the custom error after 5 seconds
 }
 
 // Delay a function call
@@ -60,17 +62,17 @@ const delayedResult = await delay(2000, () => 'Hello after 2 seconds');
 const multiply = (a, b) => a * b;
 const product = await delay(1000, multiply, 5, 7);
 
-// Defer execution until the call stack clears
-const deferred = await defer(() => 'Executed after current call stack');
+// Execute after the current call stack clears
+const deferred = await nextTick(() => 'Executed after current call stack');
 ```
 
-### Deferred Promises with `future()`
+### Deferred Promises with `deferred()`
 
 ```typescript
-import { future } from '@moon7/async';
+import { deferred } from '@moon7/async';
 
 // Create a promise that can be resolved externally
-const [promise, resolve, reject] = future();
+const [promise, resolve, reject] = deferred();
 
 // Now you can resolve it from anywhere
 setTimeout(() => resolve('Completed!'), 3000);
@@ -289,11 +291,11 @@ console.log(result); // 6
 - `sleep(ms, value?)` - Pauses execution for the specified milliseconds with optional return value
 - `timeout(ms)` - Creates a promise that rejects with a TimeoutError after the specified milliseconds
 - `delay(ms, fn, ...args)` - Delays a function call
-- `defer(fn, ...args)` - Defers a function until the call stack clears
+- `nextTick(fn, ...args)` - Executes a function after the current call stack clears
 
 ### Promise Utilities
 
-- `future()` - Creates a promise that can be resolved or rejected externally
+- `deferred()` - Creates a promise that can be resolved or rejected externally
 - `withTimeout(asyncFn, timeoutInMs)` - Adds a timeout to an async function
 - `withRetry(fn, tries, wait)` - Adds retry capability
 - `expBackoff(minRetryWaitTime)` - Creates an exponential backoff strategy
