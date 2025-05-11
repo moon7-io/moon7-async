@@ -1,6 +1,6 @@
 {
     "name": "@moon7/async",
-    "version": "0.1.1",
+    "version": "0.1.2",
     "author": "Munir Hussin <profoundseven@gmail.com>",
     "license": "MIT",
     "description": "Asynchronous utilities for JavaScript and TypeScript applications",
