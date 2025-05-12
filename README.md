@@ -286,30 +286,34 @@ console.log(result); // 6
 
 ## 📚 API Reference
 
-### ⏱️ Timing Functions
+| Export                              | Description                                                                         |
+| ----------------------------------- | ----------------------------------------------------------------------------------- |
+| **⏱️ Timing Functions**              |                                                                                     |
+| `sleep(ms, value?)`                 | Pauses execution for the specified milliseconds with optional return value          |
+| `timeout(ms)`                       | Creates a promise that rejects with a TimeoutError after the specified milliseconds |
+| `delay(ms, fn, ...args)`            | Delays a function call                                                              |
+| `nextTick(fn, ...args)`             | Executes a function after the current call stack clears                             |
+| **🔄 Promise Utilities**             |                                                                                     |
+| `deferred()`                        | Creates a promise that can be resolved or rejected externally                       |
+| `withTimeout(asyncFn, timeoutInMs)` | Adds a timeout to an async function                                                 |
+| `withRetry(fn, tries, wait)`        | Adds retry capability                                                               |
+| `expBackoff(minRetryWaitTime)`      | Creates an exponential backoff strategy                                             |
+| **🚦 Concurrency Control**           |                                                                                     |
+| `Semaphore`                         | Limits the number of concurrent operations                                          |
+| `Mutex`                             | Ensures exclusive access to a resource                                              |
+| `TaskPool`                          | Manages a pool of concurrent tasks                                                  |
+| **🛠️ Async Utilities**               |                                                                                     |
+| `fromAsyncIterator(it)`             | Collects async iterator values into an array                                        |
+| `lift(fn)`                          | Lifts a function to work with promises                                              |
 
-- `sleep(ms, value?)` - Pauses execution for the specified milliseconds with optional return value
-- `timeout(ms)` - Creates a promise that rejects with a TimeoutError after the specified milliseconds
-- `delay(ms, fn, ...args)` - Delays a function call
-- `nextTick(fn, ...args)` - Executes a function after the current call stack clears
+## 🔗 Related Libraries
 
-### 🔄 Promise Utilities
-
-- `deferred()` - Creates a promise that can be resolved or rejected externally
-- `withTimeout(asyncFn, timeoutInMs)` - Adds a timeout to an async function
-- `withRetry(fn, tries, wait)` - Adds retry capability
-- `expBackoff(minRetryWaitTime)` - Creates an exponential backoff strategy
-
-### 🚦 Concurrency Control
-
-- `Semaphore` - Limits the number of concurrent operations
-- `Mutex` - Ensures exclusive access to a resource
-- `TaskPool` - Manages a pool of concurrent tasks
-
-### 🛠️ Async Utilities
-
-- `fromAsyncIterator(it)` - Collects async iterator values into an array
-- `lift(fn)` - Lifts a function to work with promises
+| Library                                                     | Description                                                                     | npm                                                                                                             |
+| ----------------------------------------------------------- | ------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------- |
+| [@moon7/async](https://github.com/moon7-io/moon7-async)     | Asynchronous utilities for managing promises, concurrent operations, and timing | [![npm version](https://img.shields.io/npm/v/@moon7/async.svg)](https://www.npmjs.com/package/@moon7/async)     |
+| [@moon7/inspect](https://github.com/moon7-io/moon7-inspect) | Runtime type checking with powerful, composable type inspectors                 | [![npm version](https://img.shields.io/npm/v/@moon7/inspect.svg)](https://www.npmjs.com/package/@moon7/inspect) |
+| [@moon7/result](https://github.com/moon7-io/moon7-result)   | Functional error handling with Result and Maybe types                           | [![npm version](https://img.shields.io/npm/v/@moon7/result.svg)](https://www.npmjs.com/package/@moon7/result)   |
+| [@moon7/signals](https://github.com/moon7-io/moon7-signals) | Reactive programming with Signals, Sources, and Streams                         | [![npm version](https://img.shields.io/npm/v/@moon7/signals.svg)](https://www.npmjs.com/package/@moon7/signals) |
 
 ## 🤝 Contributing
 
@@ -319,6 +323,6 @@ Contributions are welcome! Please feel free to submit a Pull Request.
 
 This project is released under the MIT License. See the [LICENSE](https://github.com/moon7-io/moon7-async/blob/main/LICENSE) file for details.
 
-## 🙏 Acknowledgements
+## 🌟 Acknowledgements
 
 Created and maintained by [Munir Hussin](https://github.com/profound7).
