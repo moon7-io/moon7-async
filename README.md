@@ -311,7 +311,7 @@ console.log(result); // 6
 - `fromAsyncIterator(it)` - Collects async iterator values into an array
 - `lift(fn)` - Lifts a function to work with promises
 
-## 👥 Contributing
+## 🤝 Contributing
 
 Contributions are welcome! Please feel free to submit a Pull Request.
 
