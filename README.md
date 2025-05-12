@@ -1,11 +1,11 @@
-# @moon7/async
+# 🌙 @moon7/async
 
 A lightweight, powerful utility library for managing asynchronous operations in JavaScript and TypeScript applications.
 
 [![npm version](https://img.shields.io/npm/v/@moon7/async.svg)](https://www.npmjs.com/package/@moon7/async)
 [![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](https://opensource.org/licenses/MIT)
 
-## Features
+## ✨ Features
 
 - 🚀 **Promise utilities** - Create deferred promises, add timeouts, and implement retries with backoff strategies
 - 🔒 **Concurrency controls** - Semaphore, Mutex, and TaskPool for managing concurrent operations
@@ -13,7 +13,7 @@ A lightweight, powerful utility library for managing asynchronous operations in 
 - 🔄 **Iterator helpers** - Utilities for working with asynchronous iterators
 - 🧩 **Functional utilities** - Lift synchronous functions to work with promises
 
-## Installation
+## 📦 Installation
 
 ```bash
 # Using npm
@@ -26,9 +26,9 @@ yarn add @moon7/async
 pnpm add @moon7/async
 ```
 
-## Usage
+## 🚀 Usage
 
-### Timing Functions
+### ⏱️ Timing Functions
 
 ```typescript
 import { sleep, delay, nextTick, timeout } from '@moon7/async';
@@ -66,7 +66,7 @@ const product = await delay(1000, multiply, 5, 7);
 const deferred = await nextTick(() => 'Executed after current call stack');
 ```
 
-### Deferred Promises with `deferred()`
+### 🔄 Deferred Promises with `deferred()`
 
 ```typescript
 import { deferred } from '@moon7/async';
@@ -81,7 +81,7 @@ setTimeout(() => resolve('Completed!'), 3000);
 const result = await promise;
 ```
 
-### Adding Timeouts to Operations
+### ⏳ Adding Timeouts to Operations
 
 ```typescript
 import { withTimeout } from '@moon7/async';
@@ -101,7 +101,7 @@ try {
 }
 ```
 
-### Retry Failed Operations
+### 🔁 Retry Failed Operations
 
 ```typescript
 import { withRetry, expBackoff } from '@moon7/async';
@@ -122,7 +122,7 @@ try {
 }
 ```
 
-### Concurrency Control with Semaphore
+### 🚦 Concurrency Control with Semaphore
 
 #### Example 1: Using `acquire` and release function
 
@@ -207,7 +207,7 @@ const tasks = ['task1', 'task2', 'task3', 'task4', 'task5'];
 const results = tasks.map(task => processNonCriticalTask(task));
 ```
 
-### Mutual Exclusion with Mutex
+### 🔒 Mutual Exclusion with Mutex
 
 ```typescript
 import { Mutex } from '@moon7/async';
@@ -224,7 +224,7 @@ async function safeUpdate(data) {
 }
 ```
 
-### Managing Tasks with TaskPool
+### 🧩 Managing Tasks with TaskPool
 
 ```typescript
 import { TaskPool } from '@moon7/async';
@@ -246,7 +246,7 @@ const tasks = [
 const results = await pool.submitAll(tasks);
 ```
 
-### Working with Async Iterators
+### 🔄 Working with Async Iterators
 
 ```typescript
 import { fromAsyncIterator } from '@moon7/async';
@@ -262,7 +262,7 @@ const values = await fromAsyncIterator(generateValues());
 console.log(values); // [1, 2, 3]
 ```
 
-### Functional Programming with Promises
+### 🧰 Functional Programming with Promises
 
 ```typescript
 import { lift } from '@moon7/async';
@@ -284,37 +284,41 @@ const result = await addAsync(
 console.log(result); // 6
 ```
 
-## API Reference
+## 📚 API Reference
 
-### Timing Functions
+### ⏱️ Timing Functions
 
 - `sleep(ms, value?)` - Pauses execution for the specified milliseconds with optional return value
 - `timeout(ms)` - Creates a promise that rejects with a TimeoutError after the specified milliseconds
 - `delay(ms, fn, ...args)` - Delays a function call
 - `nextTick(fn, ...args)` - Executes a function after the current call stack clears
 
-### Promise Utilities
+### 🔄 Promise Utilities
 
 - `deferred()` - Creates a promise that can be resolved or rejected externally
 - `withTimeout(asyncFn, timeoutInMs)` - Adds a timeout to an async function
 - `withRetry(fn, tries, wait)` - Adds retry capability
 - `expBackoff(minRetryWaitTime)` - Creates an exponential backoff strategy
 
-### Concurrency Control
+### 🚦 Concurrency Control
 
 - `Semaphore` - Limits the number of concurrent operations
 - `Mutex` - Ensures exclusive access to a resource
 - `TaskPool` - Manages a pool of concurrent tasks
 
-### Async Utilities
+### 🛠️ Async Utilities
 
 - `fromAsyncIterator(it)` - Collects async iterator values into an array
 - `lift(fn)` - Lifts a function to work with promises
 
-## Contributing
+## 👥 Contributing
 
 Contributions are welcome! Please feel free to submit a Pull Request.
 
-## License
+## 📝 License
 
-This project is licensed under the MIT License - see the LICENSE file for details.
+This project is released under the MIT License. See the [LICENSE](https://github.com/moon7-io/moon7-async/blob/main/LICENSE) file for details.
+
+## 🙏 Acknowledgements
+
+Created and maintained by [Munir Hussin](https://github.com/profound7).
