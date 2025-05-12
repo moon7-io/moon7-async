@@ -286,7 +286,7 @@ console.log(result); // 6
 
 ## 📚 API Reference
 
-| Export                              | Description                                                                         |
+| API                                 | Description                                                                         |
 | ----------------------------------- | ----------------------------------------------------------------------------------- |
 | **⏱️ Timing Functions**              |                                                                                     |
 | `sleep(ms, value?)`                 | Pauses execution for the specified milliseconds with optional return value          |
