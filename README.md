@@ -1,9 +1,9 @@
 # 🌙 @moon7/async
 
-A lightweight, powerful utility library for managing asynchronous operations in JavaScript and TypeScript applications.
-
 [![npm version](https://img.shields.io/npm/v/@moon7/async.svg)](https://www.npmjs.com/package/@moon7/async)
 [![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](https://opensource.org/licenses/MIT)
+
+A lightweight, powerful utility library for managing asynchronous operations in JavaScript and TypeScript applications.
 
 ## ✨ Features
 
