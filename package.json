@@ -3,15 +3,14 @@
     "version": "0.1.2",
     "author": "Munir Hussin <profoundseven@gmail.com>",
     "license": "MIT",
-    "description": "Asynchronous utilities for JavaScript and TypeScript applications",
+    "description": "Asynchronous utilities for promises, semaphores, and concurrent operations",
     "keywords": [
         "async",
         "asynchronous",
         "promise",
-        "utility",
-        "typescript",
-        "javascript",
-        "moon7"
+        "semaphore",
+        "task-pool",
+        "timeout"
     ],
     "type": "module",
     "files": [
