@@ -260,7 +260,7 @@ describe("async utilities", () => {
 
     describe("deferred", () => {
         test("should create a promise with resolve and reject functions", async () => {
-            const [promise, resolve, reject] = deferred<string>();
+            const { promise, resolve, reject } = deferred<string>();
 
             expect(promise).toBeInstanceOf(Promise);
             expect(typeof resolve).toBe("function");
@@ -273,7 +273,7 @@ describe("async utilities", () => {
         });
 
         test("should allow rejection of the promise", async () => {
-            const [promise, , reject] = deferred<string>();
+            const { promise, reject } = deferred<string>();
             const error = new Error("test error");
 
             reject(error);

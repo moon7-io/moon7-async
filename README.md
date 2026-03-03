@@ -72,7 +72,7 @@ const deferred = await nextTick(() => 'Executed after current call stack');
 import { deferred } from '@moon7/async';
 
 // Create a promise that can be resolved externally
-const [promise, resolve, reject] = deferred();
+const { promise, resolve, reject } = deferred();
 
 // Now you can resolve it from anywhere
 setTimeout(() => resolve('Completed!'), 3000);

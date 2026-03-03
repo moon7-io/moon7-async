@@ -7,7 +7,12 @@ export type PromiseType<T, Else = never> = T extends Promise<infer P> ? P : Else
 
 export type Resolve<T> = (value: T | PromiseLike<T>) => void;
 export type Reject = (reason?: any) => void;
-export type Deferred<T> = [Promise<T>, Resolve<T>, Reject];
+
+export interface Deferred<T> {
+    promise: Promise<T>;
+    resolve: Resolve<T>;
+    reject: Reject;
+}
 
 type MapPromise<T> = { [K in keyof T]: Promise<T[K]> };
 
@@ -150,11 +155,11 @@ export function expBackoff(minRetryWaitTime: number = MINIMUM_RETRY_WAIT_TIME): 
  * const value = await promise; // "hello"
  */
 export function deferred<T>(): Deferred<T> {
-    let resolve: Resolve<T>;
-    let reject: Reject;
+    let resolve!: Resolve<T>;
+    let reject!: Reject;
     const promise = new Promise<T>((_resolve, _reject) => {
         resolve = _resolve;
         reject = _reject;
     });
-    return [promise, resolve!, reject!];
+    return { promise, resolve, reject };
 }
